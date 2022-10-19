@@ -5,6 +5,10 @@ import { ERC20SymbolBytes } from "./abis/ERC20SymbolBytes";
 import { ZERO_BD } from "./constants";
 import { convertTokenToDecimal, isNullEthValue } from "./math";
 
+/**
+ * @param  {Address} tokenAddress
+ * @returns {string} return token symbol in string
+ */
 export function fetchTokenSymbol(tokenAddress: Address): string {
   let contract = ERC20.bind(tokenAddress);
   let contractSymbolBytes = ERC20SymbolBytes.bind(tokenAddress);
@@ -27,6 +31,10 @@ export function fetchTokenSymbol(tokenAddress: Address): string {
   return symbolValue;
 }
 
+/**
+ * @param  {Address} tokenAddress
+ * @returns {string} return token name in string
+ */
 export function fetchTokenName(tokenAddress: Address): string {
   let contract = ERC20.bind(tokenAddress);
   let contractNameBytes = ERC20NameBytes.bind(tokenAddress);
@@ -49,6 +57,10 @@ export function fetchTokenName(tokenAddress: Address): string {
   return nameValue;
 }
 
+/**
+ * @param  {Address} tokenAddress
+ * @returns {string} return token decimals in BigInt
+ */
 export function fetchTokenDecimals(tokenAddress: Address): BigInt {
   let contract = ERC20.bind(tokenAddress);
   // try types uint8 for decimals
@@ -61,6 +73,10 @@ export function fetchTokenDecimals(tokenAddress: Address): BigInt {
   return BigInt.fromI32(decimalValue as i32);
 }
 
+/**
+ * @param  {Address} tokenAddress
+ * @returns {BigDecimal} return native token totalSupply in BigDecimal
+ */
 export function fetchTokenSupply(tokenAddress: Address): BigDecimal {
   let contract = ERC20.bind(tokenAddress);
   let decimal = fetchTokenDecimals(tokenAddress);
@@ -74,6 +90,11 @@ export function fetchTokenSupply(tokenAddress: Address): BigDecimal {
   return supplyValue;
 }
 
+/**
+ * @param  {Address} tokenAddress
+ * @param {Address} userAddress
+ * @returns {BigDecimal} return native token balance of an address in BigDecimal
+ */
 export function fetchTokenBalance(
   tokenAddress: Address,
   userAddress: Address
